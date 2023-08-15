@@ -12,6 +12,16 @@ public class Hymn  implements Serializable {
     @SerializedName("lyrics")
     private String lyrics;
 
+    private boolean isFavorite;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite){
+        isFavorite = favorite;
+    }
+
     public Hymn(String title, String author, String lyrics) {
         this.title = title;
         this.author = author;

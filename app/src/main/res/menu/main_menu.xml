@@ -15,6 +15,12 @@
             android:icon="@drawable/share_24"
             android:title="@string/share"/>
 
+        <item
+            android:id="@+id/rate"
+            android:icon="@drawable/star_rate_24"
+            android:title="@string/rate_us"/>
+    </group>
+    <group>
 
 
         <item

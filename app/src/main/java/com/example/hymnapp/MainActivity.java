@@ -2,6 +2,7 @@ package com.example.hymnapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -75,7 +82,14 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
             else if (itemId == R.id.share)
             {
                 // Handle share item click
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"This is my app");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"App link here");
+                startActivity(Intent.createChooser(intent, "share via"));
                 Toast.makeText(MainActivity.this, "Share Selected", Toast.LENGTH_LONG).show();
+
             }
             else if (itemId == R.id.about)
             {
@@ -88,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
             else if (itemId == R.id.favorite)
             {
                 // Handle exit item click
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Toast.makeText(MainActivity.this, "Favorite Selected", Toast.LENGTH_LONG).show();
             }
             else if (itemId == R.id.exit)
