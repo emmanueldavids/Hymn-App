@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -38,36 +39,22 @@ public class RateUs extends Dialog {
         final TextView dialog = findViewById(R.id.dialog);
 
 
-//        rateNowBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //code goes here
-//                builder.setMessage("").setTitle("");
-//                builder.setMessage("Do you want to exit this Application?")
-//                        .setCancelable(false)
-//                        .setPositiveButton("Yes", (dialog, id) -> {
-//                            finish();
-//                            Toast.makeText(getApplicationContext(),"You choose Yes action AlertBox", Toast.LENGTH_LONG).show();
-//                        })
-//                        .setNegativeButton("No", (dialog, id) ->{
-//                            dialog.cancel();
-//
-//                            Toast.makeText(getApplicationContext(),"You choose No action AlertBox", Toast.LENGTH_LONG).show();
-//                        });
-//                AlertDialog alert = builder.create();
-//                alert.setTitle("SoftwareAlertMessage");
-//                alert.show();
-//            }
-//
-//        });
-
-        laterBtn.setOnClickListener(new View.OnClickListener() {
+        rateNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //hide the Rating bar dialog
+                Toast.makeText(v.getContext(), "Thank you for rating Our App!", Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });
+
+
+        laterBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //hide the Rating bar dialog
+                        dismiss();
+                    }
+                });
 
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

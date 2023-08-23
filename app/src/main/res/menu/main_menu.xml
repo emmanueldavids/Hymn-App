@@ -25,7 +25,7 @@
         <item
             android:id="@+id/rateus"
             android:icon="@drawable/star_rate_24"
-            android:title="@string/rate_us"/>
+            android:title="@string/rate_me"/>
     </group>
 
     <item
