@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,9 +26,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity implements HymnAdapter.OnItemClickListener {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private HymnAdapter adapter;
+    private List<Hymn> originalHymnList;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -38,29 +42,46 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.menusearch, menu);
 
-        return super.onCreateOptionsMenu(menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        assert searchView != null;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
+
+        return true;
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         RecyclerView recyclerView = findViewById(R.id.hymnRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         List<Hymn> hymnList = loadHymnData();
-        HymnAdapter adapter = new HymnAdapter(hymnList);
+        originalHymnList = loadHymnData();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Set the click listener to this activity
+        adapter = new HymnAdapter(originalHymnList);
         adapter.setOnItemClickListener(this);
 
         recyclerView.setAdapter(adapter);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
-        // Navigation drawer setup
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -108,7 +129,26 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
             }
             return false;
         });
+
+
+
     }
+    private void filter(String query) {
+        List<Hymn> filteredList = new ArrayList<>();
+        if (originalHymnList != null) {
+            for (Hymn hymn : originalHymnList) {
+                if (hymn.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(hymn);
+                }
+            }
+        }
+        if (adapter != null) {
+            adapter.updateList(filteredList);
+        }
+    }
+
+
+
     private List<Hymn> loadHymnData() {
         List<Hymn> hymns = new ArrayList<>();
         try {
@@ -148,4 +188,7 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
             super.onBackPressed();
         }
     }
+
+
+
 }

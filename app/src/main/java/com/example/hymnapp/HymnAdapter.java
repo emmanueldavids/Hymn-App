@@ -8,19 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder> {
 
     private List<Hymn> hymnList;
+//    private List<Hymn> hymnList1;
     private static OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -47,8 +41,6 @@ public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder
         Hymn hymn = hymnList.get(position);
         holder.titleTextView.setText(hymn.getTitle());
         holder.authorTextView.setText(hymn.getAuthor());
-
-
     }
 
 
@@ -80,6 +72,14 @@ public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder
             });
         }
     }
+
+
+    public void updateList(List<Hymn> newList) {
+        hymnList = newList;
+        notifyDataSetChanged();
+    }
+
+
 
 
 }
