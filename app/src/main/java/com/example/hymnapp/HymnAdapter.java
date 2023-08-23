@@ -1,11 +1,21 @@
 package com.example.hymnapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder> {
@@ -37,7 +47,10 @@ public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder
         Hymn hymn = hymnList.get(position);
         holder.titleTextView.setText(hymn.getTitle());
         holder.authorTextView.setText(hymn.getAuthor());
+
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -67,4 +80,6 @@ public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder
             });
         }
     }
+
+
 }

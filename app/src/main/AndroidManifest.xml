@@ -18,7 +18,7 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat"/>
         <activity
-            android:name=".AboutUs"
+            android:name=".FavoritesActivity"
             android:exported="false" />
         <activity
             android:name=".splash_Screen"

@@ -11,4 +11,12 @@
         <item name="android:windowEnterAnimation">@anim/slide_in</item>
         <item name="android:windowExitAnimation">@anim/slide_out</item>
     </string>
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <!--Non Selected star color-->
+        <item name="colorControlNormal">#4D000000</item>
+
+        <!--Selected star color-->
+        <item name="colorControlActivated">@color/dialog_color_1</item>
+    </style>
 </resources>

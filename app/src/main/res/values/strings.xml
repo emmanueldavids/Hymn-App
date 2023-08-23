@@ -17,4 +17,9 @@
     <string name="steadfastness_missions">SteadFastNess Missions.</string>
     <string name="hymn_book">Hymn Book</string>
     <string name="rate_us">Rate Us</string>
+    <string name="may_be_later">May Be, Later</string>
+    <string name="rate_now">rate_now</string>
+    <string name="enjoying_the_app_please_rate_it">Enjoying the App? Please Rate it.</string>
+    <string name="rate_our_app">Rate Our App</string>
+    <string name="dialog_text">dialog_text</string>
 </resources>

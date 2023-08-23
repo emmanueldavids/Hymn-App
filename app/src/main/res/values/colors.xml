@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavenda">#B692f7</color>
     <color name="red">#710202</color>
+
+    <color name="dialog_color_1">#FDD736</color>
+    <color name="dialog_color_2">#3B5796</color>
 </resources>

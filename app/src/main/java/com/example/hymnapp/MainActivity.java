@@ -1,11 +1,11 @@
 package com.example.hymnapp;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,7 +24,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements HymnAdapter.OnItemClickListener {
     private DrawerLayout drawerLayout;
@@ -91,20 +90,17 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
                 Toast.makeText(MainActivity.this, "Share Selected", Toast.LENGTH_LONG).show();
 
             }
-            else if (itemId == R.id.about)
+            else if (itemId == R.id.rateus)
             {
                 // Handle about item click
-                Intent i = new Intent(MainActivity.this, AboutUs.class);
-                startActivity(i);
+                RateUs rateUs = new RateUs(MainActivity.this);
+                rateUs.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+                rateUs.setCancelable(false);
+                rateUs.show();
                 drawerLayout.closeDrawer(GravityCompat.START);
-                Toast.makeText(MainActivity.this, "About Selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Rate Selected", Toast.LENGTH_LONG).show();
             }
-            else if (itemId == R.id.favorite)
-            {
-                // Handle exit item click
-                drawerLayout.closeDrawer(GravityCompat.START);
-                Toast.makeText(MainActivity.this, "Favorite Selected", Toast.LENGTH_LONG).show();
-            }
+
             else if (itemId == R.id.exit)
             {
                 Toast.makeText(MainActivity.this, "Good Bye!", Toast.LENGTH_LONG).show();

@@ -14,18 +14,13 @@ public class Hymn  implements Serializable {
 
     private boolean isFavorite;
 
-    public boolean isFavorite() {
-        return isFavorite;
-    }
 
-    public void setFavorite(boolean favorite){
-        isFavorite = favorite;
-    }
 
     public Hymn(String title, String author, String lyrics) {
         this.title = title;
         this.author = author;
         this.lyrics = lyrics;
+        this.isFavorite = false;
     }
 
     public String getTitle() {
@@ -39,4 +34,19 @@ public class Hymn  implements Serializable {
     public String getLyrics() {
         return lyrics;
     }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void toggleFavorite() {
+        isFavorite = !isFavorite;
+    }
+
+
+    public Hymn(/* constructor parameters */) {
+        // ...
+        isFavorite = false;
+    }
+
 }
