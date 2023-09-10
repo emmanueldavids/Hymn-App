@@ -127,6 +127,15 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
                 Toast.makeText(MainActivity.this, "Good Bye!", Toast.LENGTH_LONG).show();
                 finish();
             }
+            else if (itemId == R.id.about)
+            {
+                {
+                    Intent i = new Intent(MainActivity.this, AboutUs.class);
+                    startActivity(i);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    Toast.makeText(MainActivity.this,"About Selected", Toast.LENGTH_LONG).show();
+                }
+            }
             return false;
         });
 

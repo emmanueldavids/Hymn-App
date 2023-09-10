@@ -26,6 +26,11 @@
             android:id="@+id/rateus"
             android:icon="@drawable/star_rate_24"
             android:title="@string/rate_me"/>
+
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/people_24"
+            android:title="About Us"/>
     </group>
 
     <item

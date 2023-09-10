@@ -49,26 +49,40 @@
             android:visibility="invisible" />
 
         <TextView
-            android:visibility="invisible"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STEADFASTNESS MISSIONS INC."
             android:layout_marginTop="20dp"
-            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:text="STEADFASTNESS MISSIONS INC."
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:textColor="@color/white"/>
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <TextView
-            android:visibility="invisible"
             android:id="@+id/slogan"
-            android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="serif"
+            android:text="HYMN BOOK"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HYMN BOOK"/>
+            android:layout_marginTop="300dp"
+            android:fontFamily="serif"
+            android:text="DEVELOPED BY: EMMANUEL DAVIDS"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
     </LinearLayout>
 
 
