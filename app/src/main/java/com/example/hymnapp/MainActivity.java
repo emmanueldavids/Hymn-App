@@ -1,6 +1,10 @@
 package com.example.hymnapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,11 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
+
 
         // Load hymn data and store in singleton for global use
         List<Hymn> hymnList = loadHymnData();
@@ -63,7 +77,60 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
                 bottomNav.getMenu().getItem(position).setChecked(true);
             }
         });
+
+        if (isInternetAvailable()) {
+            fetchHymnsFromFirebase();
+        } else {
+            List<Hymn> localHymns = readHymnsFromFile(); // from internal storage
+            if (localHymns.isEmpty()) {
+                localHymns = loadHymnData(); // from assets
+            }
+            HymnDataHolder.getInstance().setAllHymns(localHymns);
+        }
+
     }
+    private boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
+    private void fetchHymnsFromFirebase() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("hymns").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            List<Hymn> firebaseHymns = new ArrayList<>();
+            for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                Hymn hymn = doc.toObject(Hymn.class);
+                firebaseHymns.add(hymn);
+            }
+
+            // Save to internal file
+            writeHymnsToFile(firebaseHymns);
+            HymnDataHolder.getInstance().setAllHymns(firebaseHymns);
+        }).addOnFailureListener(e -> {
+            // fallback to local JSON if fetch fails
+            HymnDataHolder.getInstance().setAllHymns(readHymnsFromFile());
+        });
+    }
+
+    private void writeHymnsToFile(List<Hymn> hymns) {
+        File file = new File(getFilesDir(), "hymns.json");
+        try (FileWriter writer = new FileWriter(file)) {
+            new Gson().toJson(hymns, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<Hymn> readHymnsFromFile() {
+        File file = new File(getFilesDir(), "hymns.json");
+        try (FileReader reader = new FileReader(file)) {
+            Type type = new TypeToken<List<Hymn>>() {}.getType();
+            return new Gson().fromJson(reader, type);
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -117,7 +184,23 @@ public class MainActivity extends AppCompatActivity implements HymnAdapter.OnIte
 
     @Override
     public void onItemClick(Hymn hymn) {
-        HymnDataHolder.getInstance().addRecentlyViewed(hymn);
+        // Load current recent list
+        List<Hymn> recentList = RecentlyViewedManager.loadRecentHymns(this);
+
+        // Avoid duplicates
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            recentList.removeIf(h -> h.getId().equals(hymn.getId()));
+        }
+        recentList.add(0, hymn); // Add to top
+
+        // Limit recent list size (e.g. last 20 hymns)
+        if (recentList.size() > 50) {
+            recentList = recentList.subList(0, 50);
+        }
+
+        // Save updated list
+        RecentlyViewedManager.saveRecentHymns(this, recentList);
+//        HymnDataHolder.getInstance().addRecentlyViewed(hymn);
         Intent intent = new Intent(this, HymnDetailsActivity.class);
         intent.putExtra("hymn", hymn);
         startActivity(intent);

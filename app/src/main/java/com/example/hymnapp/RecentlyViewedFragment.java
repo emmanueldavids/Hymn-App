@@ -25,9 +25,13 @@ public class RecentlyViewedFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new HymnAdapter(HymnDataHolder.getInstance().getRecentlyViewedHymns());
+//        recyclerView.setAdapter(adapter);
+
+//        List<Hymn> recentHymns = HymnDataHolder.getInstance().getRecentlyViewedHymns();
+//        adapter.setOnItemClickListener((MainActivity) getActivity());
+        List<Hymn> recentHymns = RecentlyViewedManager.loadRecentHymns(getContext());
+        adapter = new HymnAdapter(recentHymns);
         recyclerView.setAdapter(adapter);
 
-        List<Hymn> recentHymns = HymnDataHolder.getInstance().getRecentlyViewedHymns();
-        adapter.setOnItemClickListener((MainActivity) getActivity());
     }
 }

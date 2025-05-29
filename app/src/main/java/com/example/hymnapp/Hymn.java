@@ -2,7 +2,12 @@ package com.example.hymnapp;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
-public class Hymn  implements Serializable {
+
+public class Hymn implements Serializable {
+
+    @SerializedName("id")
+    private String id;
+
     @SerializedName("title")
     private String title;
 
@@ -14,13 +19,27 @@ public class Hymn  implements Serializable {
 
     private boolean isFavorite;
 
-
-
-    public Hymn(String title, String author, String lyrics) {
+    // Main constructor
+    public Hymn(String id, String title, String author, String lyrics) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.lyrics = lyrics;
         this.isFavorite = false;
+    }
+
+    // Empty constructor for Firebase and GSON
+    public Hymn() {
+        this.isFavorite = false;
+    }
+
+    // Getters and Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -42,11 +61,4 @@ public class Hymn  implements Serializable {
     public void toggleFavorite() {
         isFavorite = !isFavorite;
     }
-
-
-    public Hymn(/* constructor parameters */) {
-        // ...
-        isFavorite = false;
-    }
-
 }

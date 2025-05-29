@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "468854067366",
+    "project_id": "hymnalapp-cbad6",
+    "storage_bucket": "hymnalapp-cbad6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468854067366:android:b24f1cc9f72e1d122b2467",
+        "android_client_info": {
+          "package_name": "com.example.hymnapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR3nJIwgIZcc3saB4EFyih6J72nLWYVVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
