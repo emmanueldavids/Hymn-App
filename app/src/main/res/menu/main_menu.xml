@@ -1,43 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn = "navigation_view">
-
-
-    <group
-        android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/home"
-            android:icon="@drawable/home_24"
-            android:title="@string/home"/>
-
-        <item
-            android:id="@+id/share"
-            android:icon="@drawable/share_24"
-            android:title="@string/share"/>
-
-
-    </group>
-    <group>
-
-
-        <item
-            android:id="@+id/rateus"
-            android:icon="@drawable/star_rate_24"
-            android:title="@string/rate_me"/>
-
-        <item
-            android:id="@+id/about"
-            android:icon="@drawable/people_24"
-            android:title="About Us"/>
-    </group>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/exit"
-        android:icon="@drawable/exit_to_app_24"
-        android:title="@string/exit">
-
-    </item>
-
+        android:id="@+id/nav_all"
+        android:icon="@drawable/home_24"
+        android:title="All Hymns" />
+    <item
+        android:id="@+id/nav_favorites"
+        android:icon="@drawable/non_favorite"
+        android:title="Favorites" />
+    <item
+        android:id="@+id/nav_recent"
+        android:icon="@drawable/favorite_24"
+        android:title="Recent" />
 </menu>

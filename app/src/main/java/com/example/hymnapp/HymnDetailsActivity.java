@@ -13,6 +13,8 @@ public class HymnDetailsActivity extends AppCompatActivity {
         // Get the hymn data from the intent
         if (getIntent().hasExtra("hymn")) {
             Hymn hymn = (Hymn) getIntent().getSerializableExtra("hymn");
+            RecentlyViewedHolder.getInstance().addHymn(hymn);
+
             displayHymnDetails(hymn);
         } else {
             // Handle the case when no hymn data is provided

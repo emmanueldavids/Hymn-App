@@ -15,7 +15,7 @@ public class HymnAdapter extends RecyclerView.Adapter<HymnAdapter.HymnViewHolder
 
     private List<Hymn> hymnList;
 //    private List<Hymn> hymnList1;
-    private static OnItemClickListener listener;
+    private OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Hymn hymn);
