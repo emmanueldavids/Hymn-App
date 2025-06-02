@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Hymn implements Serializable {
 
     @SerializedName("id")
-    private String id;
+    private int id;
 
     @SerializedName("title")
     private String title;
@@ -20,7 +20,7 @@ public class Hymn implements Serializable {
     private boolean isFavorite;
 
     // Main constructor
-    public Hymn(String id, String title, String author, String lyrics) {
+    public Hymn(int id, String title, String author, String lyrics) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -34,11 +34,11 @@ public class Hymn implements Serializable {
     }
 
     // Getters and Setters
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
